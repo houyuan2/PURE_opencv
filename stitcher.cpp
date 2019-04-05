@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
     if (folder_path != "") {
         folder_path = folder_path + "/*.jpg";
     } else {
-        folder_path = "images/*.jpg"
+        folder_path = "images/*.jpg";
     }
     cv::String path(folder_path); //select only jpg
     vector<cv::String> fn;
