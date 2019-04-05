@@ -37,7 +37,28 @@ int main(int argc, char* argv[])
     //         imgs.push_back(img); 
     // } 
 
-    cv::String path("images/*.jpg"); //select only jpg
+    string folder_path = "";
+    string result_name = "";
+    for (int i = 1; i < argc; ++i) {
+        if (string(argv[i]) == "-s")
+        {
+            folder_path = argv[i + 1];
+            i++;
+        }
+
+        if (string(argv[i]) == "-out")
+        {
+            result_name = argv[i + 1];
+            i++;
+        }
+    }
+
+    if (folder_path != "") {
+        folder_path = folder_path + "/*.jpg";
+    } else {
+        folder_path = "images/*.jpg"
+    }
+    cv::String path(folder_path); //select only jpg
     vector<cv::String> fn;
     vector<cv::Mat> data;
     cv::glob(path,fn,true); // recurse
@@ -50,8 +71,6 @@ int main(int argc, char* argv[])
     }
 
     imgs = data;
-
-    // cout << "load size: " << imgs.size() << endl;
 
     // Define object to store the stitched image 
     Mat pano; 
@@ -73,7 +92,10 @@ int main(int argc, char* argv[])
       
     // Store a new image stiched from the given  
     //set of images as "result.jpg" 
-    imwrite("result.jpg", pano); 
+    if (result_name == "") {
+        result_name = "result.jpg";
+    }
+    imwrite(result_name, pano); 
       
     // Show the result 
     imshow("Result", pano); 
