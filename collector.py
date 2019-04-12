@@ -10,10 +10,9 @@ ser = serial.Serial('/dev/ttyACM0',115200,timeout=1)
 while True:
     try:
         ser_bytes = ser.readline()
-        print(ser_bytes[0:len(ser_bytes)-2].decode('utf-16'))
+        print(ser_bytes[0:len(ser_bytes)-2].decode('ascii'))
     except:
         print("Keyboard Interrupt")
-        ser.close()
         break
 ser.close()
     # ser_bytes = ser.readline()
