@@ -9,15 +9,18 @@ ser = serial.Serial('/dev/ttyACM0',115200,timeout=1)
 
 v_list = []
 a_list = []
-for i in range(1000):
-   ser_bytes = ser.readline()
-   s = ser_bytes.decode('ascii')
-   l = s.split()
-   if len(l) != 2:
+for i in range(100):
+   try:
+      ser_bytes = ser.readline()
+      s = ser_bytes.decode('ascii')
+      l = s.split()
+      if len(l) != 2:
+         continue
+      print(l)
+      V = float(l[0][0:len(l[0])-2])
+      A = float(l[1][0:len(l[1])-1])
+   except:
       continue
-   print(l)
-   V = float(l[0][0:len(l[0])-2])
-   A = float(l[1][0:len(l[1])-1])
    v_list.append(V)
    a_list.append(A)
 
